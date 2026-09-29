@@ -1,16 +1,19 @@
-export interface UserInputData {
-  initialInvestment: number;
-  annualInvestment: number;
-  expectedReturn: number;
-  duration: number;
+import { ChangeEvent } from 'react';
+import { InvestmentInput } from '../util/investment'
+
+interface UserInputProps {
+  userInput: InvestmentInput;
+  onChange: (inputIdentifier: keyof InvestmentInput, newValue: string) => void;
 }
 
-interface IProps {
-  userInput: UserInputData;
-  onChange: (inputIdentifier: keyof UserInputData, newValue: number) => void;
-}
+export default function UserInput({ onChange, userInput }: UserInputProps) {
+  const handleInputChange = (
+    identifier: keyof InvestmentInput,
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    onChange(identifier, event.target.value);
+  };
 
-export default function UserInput({ onChange, userInput }: IProps) {
   return (
     <section id="user-input">
       <div className="input-group">
@@ -20,9 +23,7 @@ export default function UserInput({ onChange, userInput }: IProps) {
             type="number"
             required
             value={userInput.initialInvestment}
-            onChange={(event) =>
-              onChange('initialInvestment', +event.target.value)
-            }
+            onChange={(event) => handleInputChange('initialInvestment', event)}
           />
         </p>
         <p>
@@ -31,9 +32,7 @@ export default function UserInput({ onChange, userInput }: IProps) {
             type="number"
             required
             value={userInput.annualInvestment}
-            onChange={(event) =>
-              onChange('annualInvestment', +event.target.value)
-            }
+            onChange={(event) => handleInputChange('annualInvestment', event)}
           />
         </p>
       </div>
@@ -44,9 +43,7 @@ export default function UserInput({ onChange, userInput }: IProps) {
             type="number"
             required
             value={userInput.expectedReturn}
-            onChange={(event) =>
-              onChange('expectedReturn', +event.target.value)
-            }
+            onChange={(event) => handleInputChange('expectedReturn', event)}
           />
         </p>
         <p>
@@ -55,9 +52,7 @@ export default function UserInput({ onChange, userInput }: IProps) {
             type="number"
             required
             value={userInput.duration}
-            onChange={(event) =>
-              onChange('duration', +event.target.value)
-            }
+            onChange={(event) => handleInputChange('duration', event)}
           />
         </p>
       </div>

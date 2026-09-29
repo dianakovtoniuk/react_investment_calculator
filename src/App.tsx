@@ -1,22 +1,26 @@
 import { useState } from 'react';
 
-import Header from './components/Header.jsx';
-import UserInput, { UserInputData } from './components/UserInput';
-import Results from './components/Results.jsx';
+import Header from './components/Header';
+import UserInput from './components/UserInput';
+import Results from './components/Results';
+import { InvestmentInput } from './util/investment';
 
 function App() {
-  const [userInput, setUserInput] = useState<UserInputData>({
+  const [userInput, setUserInput] = useState<InvestmentInput>({
     initialInvestment: 10000,
     annualInvestment: 1200,
     expectedReturn: 6,
     duration: 10,
   });
 
-  function handleChange(inputIdentifier: keyof UserInputData, newValue: number) {
+  function handleChange(
+    inputIdentifier: keyof InvestmentInput,
+    newValue: string
+  ) {
     setUserInput((prevUserInput) => {
       return {
         ...prevUserInput,
-        [inputIdentifier]: newValue,
+        [inputIdentifier]: +newValue,
       };
     });
   }
