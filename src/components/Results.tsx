@@ -1,17 +1,11 @@
-import { calculateInvestmentResults, formatter } from '../util/investment.js';
-import { InvestmentInput, InvestmentResult } from '../util/investment';
+import { calculateInvestmentResults, formatter, InvestmentInput } from '../util/investment';
 
 interface ResultsProps {
   input: InvestmentInput;
 }
 
 export default function Results({ input }: ResultsProps) {
-  const resultsData: InvestmentResult[] = calculateInvestmentResults(input);
-
-  if (resultsData.length === 0) {
-    return <p className="center">Please enter a duration greater than zero.</p>;
-  }
-
+  const resultsData = calculateInvestmentResults(input);
   const initialInvestment =
     resultsData[0].valueEndOfYear -
     resultsData[0].interest -
